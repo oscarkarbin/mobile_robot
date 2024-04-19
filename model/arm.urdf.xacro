@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <robot name="robot" xmlns:xacro="http://ros.org/wiki/xacro">
 
 
@@ -153,7 +154,7 @@
     <joint name="shaft_to_upper_arm">
         <command_interface name="position"/>
         <state_interface name="position">
-            <param name="initial_value">0.0</param>
+            <param name="initial_value">1.0</param>
         </state_interface>
         <state_interface name="velocity"/>
     
