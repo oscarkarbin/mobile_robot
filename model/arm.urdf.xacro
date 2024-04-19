@@ -1,0 +1,178 @@
+<robot name="robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+    <xacro:include filename="$(find mobile_robot)/model/arm.gazebo"/>
+
+    <link name="world">
+    </link>
+
+    <joint name="world_join" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="1 1 0" rpy="0 0 0"/>  
+    </joint>
+
+    <link name="base_link">
+        <visual>
+        <origin xyz="0 0 0.005" rpy="0 0 0"/>
+        <geometry>
+            <mesh filename="package://mobile_robot/meshes/Base.stl"/>
+        </geometry>
+
+        <material name="some_material">
+            <color rgba="0.8 0.8 0.8 1.0"/> <!-- Light Gray color -->
+        </material>
+        </visual>
+
+        <collision>
+        <origin xyz="0 0 0.005" rpy="0 0 0"/>
+        <geometry>
+            <mesh filename="package://mobile_robot/meshes/Base.stl"/>
+        </geometry>
+        </collision>
+
+        <inertial>
+        <mass value="1.0"/> <!-- Mass of the link in kilograms -->
+        <origin xyz="0 0 0.005" rpy="0 0 0"/> <!-- Center of mass relative to the link frame -->
+        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- Inertia tensor components -->
+        </inertial>
+    </link>
+
+
+    <joint name="base_to_shaft_arm" type="continuous">
+        <parent link="base_link"/>
+        <child link="base_arm_link"/>
+        <origin xyz ="0 0 0.165400" rpy="0 0 0"/>
+        <axis xyz ="0 0 1"/>
+    </joint>
+
+  <link name="base_arm_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/Link1_asmb.stl"/>
+      </geometry>
+
+      <material name="some_material">
+        <color rgba="0.8 0.8 0.8 1.0"/> <!-- Light Gray color -->
+      </material>
+    </visual>
+
+    <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/Link1_asmb.stl"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="1.0"/> <!-- Mass of the link in kilograms -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass relative to the link frame -->
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- Inertia tensor components -->
+    </inertial>
+  </link>
+
+  <joint name="shaft_to_upper_arm" type="continuous">
+    <parent link="base_arm_link"/>
+    <child link="upper_arm_link"/>
+    <origin xyz="0.064 0 0.364800" rpy="0 0 0"/>
+    <axis xyz = "1 0 0"/>
+  </joint>
+
+  <link name="upper_arm_link"> 
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/Link2_asmb.stl"/>
+      </geometry>
+
+      <material name="some_material">
+        <color rgba="1.0 0.5 0.0 1.0"/> <!-- Grey color, adjust as needed -->
+      </material>
+    </visual>
+
+    <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/Link2_asmb.stl"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="1.0"/> <!-- Mass of the link in kilograms -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass relative to the link frame -->
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- Inertia tensor components -->
+    </inertial>
+  </link>
+
+  <joint name="upper_arm_to_lower_arm" type="continuous">
+    <parent link="upper_arm_link"/>
+    <child link="lower_arm_link"/>
+    <origin xyz="-0.029 0.588 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <link name="lower_arm_link">
+  <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/Link3_asmb.stl"/>
+      </geometry>
+
+      <material name="some_material">
+        <color rgba="1.0 0.5 0.0 1.0"/> <!-- Grey color, adjust as needed -->
+      </material>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/Link3_asmb.stl"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="1.0"/> <!-- Mass of the link in kilograms -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass relative to the link frame -->
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- Inertia tensor components -->
+    </inertial>
+  </link>
+
+  <ros2_control name="GazeboSimSystem" type="system">
+    <hardware>
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    <joint name="base_to_shaft_arm">
+        <command_interface name="position"/>
+        <state_interface name="position">
+            <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="shaft_to_upper_arm">
+        <command_interface name="position"/>
+        <state_interface name="position">
+            <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+    
+    </joint>
+
+    <joint name="upper_arm_to_lower_arm">
+        <command_interface name="position"/>
+        <state_interface name="position">
+            <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>   
+    </joint>
+  
+  </ros2_control>
+
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>$(find mobile_robot)/config/arm_controller.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+</robot>
