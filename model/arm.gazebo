@@ -2,26 +2,22 @@
 <robot>
 
 <gazebo reference="base_link">
-  <mu1>1.0</mu1>
-  <mu2>1.0</mu2>
+
   <material>Gazebo/Gray</material>
 </gazebo>
 
 <gazebo reference="base_arm_link">
-  <mu1>1.0</mu1>
-  <mu2>1.0</mu2>
+
   <material>Gazebo/Gray</material>
 </gazebo>
 
 <gazebo reference="upper_arm_link">
-  <mu1>1.0</mu1>
-  <mu2>1.0</mu2>
+
   <material>Gazebo/Gray</material>
 </gazebo>
 
 <gazebo reference="lower_arm_link">
-  <mu1>1.0</mu1>
-  <mu2>1.0</mu2>
+
   <material>Gazebo/Gray</material>
 </gazebo>
 

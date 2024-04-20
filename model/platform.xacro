@@ -9,7 +9,7 @@
 <!-- Main body link dimensions -->
 <xacro:property name="body_link_x_dim" value="1"/>
 <xacro:property name="body_link_y_dim" value="0.6"/>
-<xacro:property name="body_link_z_dim" value="0.3"/>
+<xacro:property name="body_link_z_dim" value="0.2"/>
 
 <!-- Wheel dimenstions -->
 <xacro:property name="wheel_link_rad" value="0.15"/>

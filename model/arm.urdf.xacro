@@ -3,7 +3,7 @@
 
 
     <xacro:include filename="$(find mobile_robot)/model/arm.gazebo"/>
-
+<!-- 
     <link name="world">
     </link>
 
@@ -11,7 +11,7 @@
         <parent link="world"/>
         <child link="base_link"/>
         <origin xyz="1 1 0" rpy="0 0 0"/>  
-    </joint>
+    </joint> -->
 
     <link name="base_link">
         <visual>
@@ -34,8 +34,8 @@
 
         <inertial>
         <mass value="1.0"/> <!-- Mass of the link in kilograms -->
-        <origin xyz="0 0 0.005" rpy="0 0 0"/> <!-- Center of mass relative to the link frame -->
-        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- Inertia tensor components -->
+        <origin xyz="0 0 0.08" rpy="0 0 0"/> <!-- Center of mass relative to the link frame -->
+        <inertia ixx="0.00398" ixy="0" ixz="0" iyy="0.00398" iyz="0" izz="0.00370"/> <!-- Inertia tensor components -->
         </inertial>
     </link>
 
@@ -67,10 +67,11 @@
     </collision>
 
     <inertial>
-      <mass value="1.0"/> <!-- Mass of the link in kilograms -->
-      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass relative to the link frame -->
-      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- Inertia tensor components -->
+      <mass value="2.0"/> <!-- Mass of the link in kilograms -->
+      <origin xyz="0 0 0.065" rpy="0 0 0"/> <!-- Center of mass relative to the link frame, centered along height -->
+      <inertia ixx="0.00462" ixy="0" ixz="0" iyy="0.00462" iyz="0" izz="0.00360"/> <!-- Updated Inertia tensor components -->
     </inertial>
+
   </link>
 
   <joint name="shaft_to_upper_arm" type="continuous">
@@ -100,9 +101,9 @@
     </collision>
 
     <inertial>
-      <mass value="1.0"/> <!-- Mass of the link in kilograms -->
-      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass relative to the link frame -->
-      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- Inertia tensor components -->
+      <mass value="2.0"/> <!-- Mass of the link in kilograms -->
+      <origin xyz="0 0.34 0" rpy="0 0 0"/> <!-- Center of mass is offset along the y-axis (half the length of the cylinder) -->
+      <inertia ixx="0.07817" ixy="0" ixz="0" iyy="0.07817" iyz="0" izz="0.00221"/> <!-- Updated Inertia tensor components -->
     </inertial>
   </link>
 
@@ -133,11 +134,14 @@
     </collision>
 
     <inertial>
-      <mass value="1.0"/> <!-- Mass of the link in kilograms -->
-      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass relative to the link frame -->
-      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- Inertia tensor components -->
+        <mass value="1.0"/> <!-- Mass of the link in kilograms -->
+        <origin xyz="0 0.21 0" rpy="0 0 0"/> <!-- Center of mass relative to the link frame, centered along height -->
+        <inertia ixx="0.01506" ixy="0" ixz="0" iyy="0.01506" iyz="0" izz="0.000722"/> <!-- Updated Inertia tensor components -->
     </inertial>
+
   </link>
+
+  <xacro:include filename="$(find mobile_robot)/model/camera.xacro"/>
 
   <ros2_control name="GazeboSimSystem" type="system">
     <hardware>
@@ -154,7 +158,7 @@
     <joint name="shaft_to_upper_arm">
         <command_interface name="position"/>
         <state_interface name="position">
-            <param name="initial_value">1.0</param>
+            <param name="initial_value">0.0</param>
         </state_interface>
         <state_interface name="velocity"/>
     

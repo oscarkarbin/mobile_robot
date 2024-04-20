@@ -14,11 +14,11 @@ import xacro
 
 
 def generate_launch_description():
-    robotXacroName ='robot'
+    robotXacroName ='mobile_manipulator_robot'
 
     namePackage = 'mobile_robot'
 
-    modelFileRelativePath = 'model/arm.urdf.xacro'
+    modelFileRelativePath = 'model/mobile_manipulator.xacro'
     
     worldFileRelativePath = 'model/empty_world.world'
 

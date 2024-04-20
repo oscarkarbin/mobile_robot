@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="mobile_manipulator_robot">
+
+    <xacro:include filename="$(find mobile_robot)/model/platform.xacro"/>
+
+
+    <xacro:include filename="$(find mobile_robot)/model/arm.urdf.xacro"/>
+
+    <joint name="arm_mount_joint" type="fixed">
+        <origin xyz="0.3 0 0.1" rpy="0 0 0"/> 
+        <parent link="body_link"/> 
+        <child link="base_link"/> 
+    </joint>
+</robot>
+

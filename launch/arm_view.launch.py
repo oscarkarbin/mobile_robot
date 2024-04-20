@@ -14,7 +14,7 @@ def generate_launch_description():
  
     # Define filenames    
     urdf_package = 'mobile_robot'
-    urdf_filename = 'arm.xacro'
+    urdf_filename = 'mobile_manipulator.xacro'
     rviz_config_filename = 'arm_view.rviz'
  
     # Set paths to important files
